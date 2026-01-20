@@ -1,0 +1,39 @@
+import sqlite3
+from datetime import datetime
+
+class DBHandler:
+    def __init__(self, db_name="production_buffer.db"):
+        self.conn = sqlite3.connect(db_name)
+        self.create_table()
+
+    def create_table(self):
+        """Tworzy tabelę dla logów produkcyjnych, jeśli nie istnieje."""
+        query = """
+        CREATE TABLE IF NOT EXISTS production_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            machine_id TEXT,
+            units INTEGER,
+            status TEXT,
+            timestamp DATETIME,
+            synced INTEGER DEFAULT 0
+        )
+        """
+        self.conn.execute(query)
+        self.conn.commit()
+
+    def log_production(self, machine_id, units, status="running"):
+        """Zapisuje dane lokalnie."""
+        query = "INSERT INTO production_logs (machine_id, units, status, timestamp) VALUES (?, ?, ?, ?)"
+        self.conn.execute(query, (machine_id, units, status, datetime.now()))
+        self.conn.commit()
+        print(f"📦 [Local DB] Zapisano: {units} szt. z {machine_id}")
+
+    def get_unsynced_logs(self):
+        """Pobiera dane, które nie zostały jeszcze wysłane do Odoo."""
+        cursor = self.conn.execute("SELECT * FROM production_logs WHERE synced = 0")
+        return cursor.fetchall()
+
+    def mark_as_synced(self, log_id):
+        """Oznacza log jako wysłany."""
+        self.conn.execute("UPDATE production_logs SET synced = 1 WHERE id = ?", (log_id,))
+        self.conn.commit()
