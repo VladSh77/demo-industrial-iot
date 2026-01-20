@@ -1,5 +1,6 @@
 # Fayna Digital Industrial Bridge | Core Orchestrator
 from machine_tester import MachineTester
+from db_handler import DBHandler
 import config
 
 def initialize_bridge():
