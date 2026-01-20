@@ -1,19 +1,24 @@
+# Fayna Digital Industrial Bridge | Core Orchestrator
 from machine_tester import MachineTester
-import time
+import config
 
-def run_fayna_bridge():
-    print("🚀 FAYNA DIGITAL: Industrial IoT Bridge Started")
+def initialize_bridge():
+    """Starts the synchronization process between Factory Floor and ERP"""
+    print("--- FAYNA DIGITAL: Industrial IoT Bridge v1.0 ---")
+    
+    # Instance of the connectivity tester
     tester = MachineTester()
     
-    # Список машин у друкарні
-    machines = ["Heidelberg-Offset-01", "HP-Indigo-7k"]
+    # List of monitored assets in the printing house
+    assets = ["Heidelberg-XL-106", "HP-Indigo-6k"]
     
-    for m in machines:
-        if tester.check_status(m):
-            print(f"⚙️ Syncing {m} production data with Odoo MRP...")
-            # Тут викликається Odoo Connector
-    
-    print("🏁 Sync Cycle Completed.")
+    for asset_id in assets:
+        print(f"🔄 Checking status for: {asset_id}")
+        if tester.check_status(asset_id):
+            # Logic for Odoo API call would be placed here
+            print(f"📊 {asset_id}: Data stream active. Syncing with Odoo MRP...")
+        else:
+            print(f"🚨 {asset_id}: Critical Error. Machine unreachable.")
 
 if __name__ == "__main__":
-    run_fayna_bridge()
+    initialize_bridge()
