@@ -1,17 +1,15 @@
-# 🏭 Industrial IoT Bridge: Odoo MRP Integration
-**Architect:** Volodymyr Shevchenko | CTO @ Fayna Digital
+# 🏭 Industrial IoT Bridge: Integracja z Odoo MRP
+**Architekt Systemu:** Volodymyr Shevchenko | CTO @ Fayna Digital
 
-### 🌐 Overview
-This repository demonstrates a professional Python-based bridge between industrial printing machinery and **Odoo Enterprise MRP**. It ensures seamless data flow from the production floor to the boardroom.
+### 🌐 Opis Projektu
+To repozytorium prezentuje profesjonalny most technologiczny (IoT Bridge) zbudowany w Pythonie, który łączy park maszynowy bezpośrednio z systemem **Odoo Enterprise MRP**. Rozwiązanie eliminuje błędy ludzkie і zapewnia pełną transparentność produkcji w czasie rzeczywistym.
 
+### 🛠 Składniki Systemu
+* **`config.py`**: Warstwa bezpiecznej abstrakcji dla poświadczeń API.
+* **`machine_tester.py`**: Moduł diagnostyczny "Heartbeat" – weryfikacja dostępności maszyn w sieci lokalnej.
+* **`main.py`**: Główny silnik synchronizacji danych produkcyjnych z ERP.
 
-
-### 🛠 System Components
-* **`config.py`**: Secure abstraction layer for API credentials.
-* **`machine_tester.py`**: Connectivity & Heartbeat validation module (Ensures machines are "listening").
-* **`main.py`**: Central execution engine for real-time synchronization.
-
-### 🚀 Business Value
-* **Eliminate Manual Entry:** Real-time production counts directly in Odoo.
-* **Predictive Maintenance:** Monitor machine status via API to prevent downtime.
-* **Scalability:** Ready for integration with hundreds of machines via MQTT/REST.
+### 🚀 Wartość Biznesowa
+* **Automatyzacja Raportowania:** Dane o nakładach trafiają bezpośrednio do Odoo bez udziału operatora.
+* **Zgodność z RODO:** Bezpieczne przetwarzanie danych na lokalnych serwerach або AWS.
+* **Skalowalność:** Architektura gotowa na integrację z dziesiątkami maszyn drukarskich.
